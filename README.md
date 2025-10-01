@@ -4,6 +4,12 @@ Este proyecto es una herramienta de consola para analizar datos sísmicos. El pr
 
 ## Uso del Programa
 
+Primero para compilar se necesita:
+g++ main.cpp Analizador.cpp -o analizador_sismico
+
+Y para correr se necesita correr:
+.\analizador_sismico.exe
+
 La interacción con el programa se realiza a través de un menú en la consola:
 
 1.  **Inicio:** El programa pedirá el nombre del archivo de datos que deseas analizar
