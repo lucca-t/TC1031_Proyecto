@@ -8,6 +8,19 @@ El programa carga un conjunto de datos de sismos desde un archivo `.csv`, crea u
 A través de un menú interactivo en consola, el usuario puede ordenar y mostrar los sismos más fuertes, más superficiales, más recientes, o ver todos los registros.
 También es posible agregar nuevos sismos durante la ejecución.
 
+## Descripción del avance 2
+Escribe aquí la descripción de lo que contiene este avance. 
+
+
+
+    
+### Cambios sobre el primer avance
+1. Escribe la lista de cambios realizados sobre el planteamiento original: Argumenta la razón por la que decidiste el cambio. Estos argumentos puedes retomarlos más adelante en tu argumentación de competencias.
+2. Cambio 2: Razón del cambio
+3. Cambio 3: Razón del cambio
+4. etc...: etc...
+
+
 ## Instrucciones para compilar el avance de proyecto
 
 Ejecuta el siguiente comando en la terminal:
@@ -75,3 +88,15 @@ Esto demuestra un análisis completo de las operaciones clave del programa y su 
 Para almacenar los objetos `Sismo` se utilizó un **vector dinámico**, ya que permite acceso rápido a los elementos ($O(1)$) y facilita los algoritmos de ordenamiento por índice.
 Para ordenar, se eligió **Merge Sort**, ya que garantiza un tiempo de ejecución estable de $O(n \log n)$ y una estructura modular que acepta un **comparador** como parámetro.
 Esto permite reutilizar el mismo algoritmo para ordenar por magnitud, profundidad o fecha sin duplicar código.
+
+#### Selecciona una estructura de datos adecuada al problema y la usa correctamente.
+
+
+
+
+
+### SICT0303: Implementa acciones científicas
+
+#### Implementa mecanismos para consultar información de las estructuras correctos.
+
+#### Implementa mecanismos de lectura de archivos para cargar datos a las estructuras de manera correcta.
