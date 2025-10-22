@@ -22,7 +22,7 @@ int main() {
     std::string nombreArchivo;
 
     std::cout << "Bienvenido al Analizador de Datos Sísmicos.\n";
-    std::cout << "Por favor, escribe el nombre del archivo CSV: ";
+    std::cout << "Por favor, escribe el nombre del archivo CSV (eg. \"Ejemplo.csv\"): ";
     std::cin >> nombreArchivo;
 
     if (!analizador.cargarDatos(nombreArchivo)) {
