@@ -1,66 +1,77 @@
-# Analizador de Datos Sísmicos
+# Proyecto: Analizador de Datos Sísmicos
 
-Este proyecto es una herramienta de consola para analizar datos sísmicos. El programa carga un conjunto de datos de terremotos desde un archivo `.csv` y permite al usuario ordenar y visualizar la información según diferentes criterios, como la magnitud, la profundidad y la fecha del evento.
+Este proyecto es una herramienta de consola para analizar datos sísmicos. Permite cargar información de terremotos desde un archivo `.csv` y visualizar los datos ordenados por diferentes criterios como magnitud, profundidad o fecha.
 
-## Uso del Programa
+## Descripción del avance 1
 
-La interacción con el programa se realiza a través de un menú en la consola:
+El programa carga un conjunto de datos de sismos desde un archivo `.csv`, crea un objeto `Sismo` por cada registro, y los almacena en una estructura de datos interna.
+A través de un menú interactivo en consola, el usuario puede ordenar y mostrar los sismos más fuertes, más superficiales, más recientes, o ver todos los registros.
+También es posible agregar nuevos sismos durante la ejecución.
 
-1.  **Inicio:** El programa pedirá el nombre del archivo de datos que deseas analizar
-2.  **Carga de Datos:** El programa leerá el archivo, creará un objeto en memoria para cada sismo y los almacenará en una estructura de datos interna. Si el archivo no existe se mostrará un error.
-3.  **Menú Interactivo:** Una vez cargados los datos, se mostrará un menú con las siguientes opciones:
-    * `1. Mostrar los sismos más FUERTES (ordenar por magnitud)`
-    * `2. Mostrar los sismos más SUPERFICIALES (ordenar por profundidad)`
-    * `3. Mostrar los sismos más RECIENTES (ordenar por fecha)`  
-    * `4. Mostrar todos los datos sin ordenar`
-    * `5. Agregar datos de nuevo sismo `
-    * `6. Salir`
-4.  **Análisis:** Elige una opción numérica y el programa ordenará los datos según el criterio seleccionado y los mostrará en pantalla. Si se selecciono agregar datos se agregan en el formato adecuado.
-5.  **Ciclo:** Después de mostrar los resultados, el menú volverá a aparecer, permitiéndote realizar otro análisis sin tener que recargar el archivo.
-6.  **Salida:** Selecciona la opción `6` para finalizar el programa.
+## Instrucciones para compilar el avance de proyecto
+
+Ejecuta el siguiente comando en la terminal:
+
+`g++ Analizador.h Sismo.h Analizador.cpp main.cpp -std=c++11 -o analizador_sismico`
+
+## Instrucciones para ejecutar el avance de proyecto
+
+Ejecuta el siguiente comando en la terminal:
+
+`./analizador_sismico`
+
+## Descripción de las entradas del avance de proyecto
+
+El programa solicita el nombre de un archivo `.csv` con los datos sísmicos.
+Cada línea del archivo debe contener la información de un sismo en el siguiente formato:
+
+`fecha,magnitud,profundidad,ubicacion`
+
+**Ejemplo de entrada:**
+
+```
+2021-07-13,5.4,10,Guerrero
+2022-02-11,6.2,35,Chiapas
+2023-01-05,4.8,15,Oaxaca
+```
+
+Si el archivo no existe, el programa mostrará un mensaje de error y solicitará un nuevo nombre.
+
+## Descripción de las salidas del avance de proyecto
+
+El programa muestra en consola los resultados del análisis solicitado.
+Las opciones disponibles en el menú son:
+
+1. Mostrar los sismos más **fuertes** (ordenar por magnitud)
+2. Mostrar los sismos más **superficiales** (ordenar por profundidad)
+3. Mostrar los sismos más **recientes** (ordenar por fecha)
+4. Mostrar **todos los datos sin ordenar**
+5. **Agregar un nuevo sismo**
+6. **Salir del programa**
+
+Cada opción despliega los resultados en formato tabular directamente en la consola.
 
 ---
 
-## SICT0302: Toma decisiones
+## Desarrollo de competencias
 
-### Selecciona y usa una estructura lineal adecuada al problema
+### SICT0301: Evalúa los componentes
 
-Para almacenar los objetos `Sismo`, se utilizó un **arreglo dinámico (vector)**. Se eligió esta estructura por las siguientes razones:
+#### Hace un análisis de complejidad correcto y completo para los algoritmos de ordenamiento usados en el programa.
 
-* **Acceso Eficiente:** El programa se centra en ordenar y mostrar datos. Un vector ofrece acceso a sus elementos en tiempo constante $O(1)$, lo cual es ideal para iterar sobre los datos y para algoritmos de ordenamiento que requieren acceso por índice.
-* **Caso de Uso:** Si se pueden insertar elementos, pero se hace muy poco en comparación con los ordenamientos y accesos al arreglo. Por lo tanto, la desventaja del vector en inserciones ($O(n)$) no es tan importante aquí.
+El algoritmo principal de ordenamiento es **Merge Sort**, seleccionado por su complejidad garantizada de $O(n \log n)$ en todos los casos.
+El análisis de complejidad de las operaciones principales es el siguiente:
 
-El código que implementa esto se encuentra en la función de carga de datos, donde cada sismo leído del archivo `.csv` se agrega al final del vector.
+* **Carga de Datos:** $O(n)$ — Se recorre cada línea del archivo y se inserta al final del vector.
+* **Ordenamiento (Merge Sort):** $O(n \log n)$ — División y fusión recursiva de los datos.
+* **Muestra de Datos:** $O(n)$ — Se recorre la lista de sismos para imprimir los resultados.
 
-### Selecciona un algoritmo de ordenamiento adecuado al problema
+Esto demuestra un análisis completo de las operaciones clave del programa y su desempeño.
 
-Para todas las opciones de ordenamiento (magnitud, profundidad y fecha), se seleccionó el algoritmo **Merge Sort**.
+### SICT0302: Toma decisiones
 
-Es un algoritmo mas rápido que el Quick Sort en el peor caso porque tiene un peor caso de $O(n^2)$. **Merge Sort garantiza una complejidad de tiempo de $O(n \log n)$ en todos los casos**, lo que lo convierte en una opción más predecible para un conjunto de datos de tamaño desconocido.
+#### Selecciona un algoritmo de ordenamiento adecuado al problema y lo usa correctamente.
 
-La implementación es modular: se utiliza una única función `mergeSort` que acepta un **comparador** como parámetro. Esto permite reutilizar el mismo algoritmo para ordenar por magnitud, profundidad y fecha con solo cambier la regla de comparación.
-
----
-
-## SICT0301: Evalúa los componentes
-
-### Hace un análisis de complejidad correcto y completo para el programa y sus componentes
-
-A continuación, se detalla el análisis de complejidad para las operaciones clave del programa, donde *n* es el número total de sismos en el conjunto de datos.
-
-#### Carga de Datos (Lectura de archivo CSV)
-
-* **Complejidad de Tiempo:** $O(n)$
-* **Justificación:** El programa debe recorrer cada una de las *n* líneas del archivo una vez para procesarla y crear un objeto `Sismo`. La inserción al final de un vector es $O(1)$, por lo que la complejidad total está dominada por la longitud del archivo.
-
-#### Ordenamiento de Sismos (Merge Sort)
-
-* **Complejidad de Tiempo:** $O(n \log n)$
-* **Justificación:** Esta es la complejidad de tiempo garantizada para Merge Sort en su peor, promedio y mejor caso, ya que divide el conjunto de datos de manera consistente hasta llegar a elementos individuales y luego los fusiona.
-* **Complejidad de Espacio:** $O(n)$
-* **Justificación:** Merge Sort es un algoritmo que no ordena "in-place". Requiere la creación de arreglos auxiliares para almacenar temporalmente las mitades del conjunto de datos durante el proceso de merging.
-
-#### Muestra de Datos (Cualquier opción)
-
-* **Complejidad de Tiempo:** $O(n)$
-* **Justificación:** Con los datos ordenados o no ordenados, para mostrarlos en la consola es necesario iterar a través de toda la lista de *n* sismos e imprimir la información de cada uno.
+Para almacenar los objetos `Sismo` se utilizó un **vector dinámico**, ya que permite acceso rápido a los elementos ($O(1)$) y facilita los algoritmos de ordenamiento por índice.
+Para ordenar, se eligió **Merge Sort**, ya que garantiza un tiempo de ejecución estable de $O(n \log n)$ y una estructura modular que acepta un **comparador** como parámetro.
+Esto permite reutilizar el mismo algoritmo para ordenar por magnitud, profundidad o fecha sin duplicar código.
