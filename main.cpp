@@ -1,7 +1,7 @@
 // Lucca Traslosheros Abascal
 // A01713944
-// Avance 1
-// 26 de septiembre de 2025
+// Avance 2
+// 23 de octubre de 2025
 
 #include <iostream>
 #include <limits>
@@ -13,7 +13,8 @@ void mostrarMenu() {
               << "2. Mostrar los sismos más SUPERFICIALES (ordenar por profundidad)\n"
               << "3. Mostrar los sismos más RECIENTES (ordenar por fecha)\n"
               << "4. Mostrar todos los datos\n"
-              << "5. Salir\n"
+              << "5. Mostrar los sismos usando BST (inorder, preorder, postorder)\n"
+              << "6. Salir\n"
               << "Elige una opción: ";
 }
 
@@ -50,6 +51,18 @@ int main() {
                 };
                 analizador.ordenarPor(porMagnitud);
                 analizador.mostrarDatos("Sismos ordenados por Mayor Magnitud");
+                
+
+                std::cout << "\nUsando un BST\n"<<
+                "Sismos por magnitud (inorder): " << analizador.mostrarInorder() << "\n";
+
+                std::cout << "Preorder: " <<
+                 analizador.mostrarPreorder() << "\n";
+
+                std::cout << "Postorder: " << 
+                analizador.mostrarPostorder() << "\n";
+
+                
                 break;
             }
             case 2: { // Ordena por profundidad de menor a mayor.
@@ -69,17 +82,31 @@ int main() {
                 break;
             }
             case 4: {
+                std::cout << "Todos los sismos (vector original):\n";
                 analizador.mostrarDatos("Todos los datos");
+
+                std::cout << "Todos los sismos (BST inorder por magnitud):\n";
+                std::cout << analizador.mostrarInorder() << "\n";
+
                 break;
             }
-            case 5:
+            case 5: { // Nuevo: mostrar BST
+                std::cout << "\n--- Sismos usando BST (inorder) ---\n";
+                std::cout << analizador.mostrarInorder() << "\n";
+                std::cout << "--- Sismos usando BST (preorder) ---\n";
+                std::cout << analizador.mostrarPreorder() << "\n";
+                std::cout << "--- Sismos usando BST (postorder) ---\n";
+                std::cout << analizador.mostrarPostorder() << "\n";
+                break;
+            }
+            case 6:
                 std::cout << "Análisis terminado. ¡Adiós!\n";
                 break;
             default:
                 std::cout << "Opción no válida. Intenta de nuevo.\n";
                 break;
         }
-    } while (opcion != 5);
+    } while (opcion != 6);
 
     return 0;
 }

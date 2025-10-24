@@ -38,14 +38,15 @@ Ejecuta el siguiente comando en la terminal:
 El programa solicita el nombre de un archivo `.csv` con los datos sísmicos.
 Cada línea del archivo debe contener la información de un sismo en el siguiente formato:
 
-`fecha,magnitud,profundidad,ubicacion`
+`ID,FechaUTC,Latitud,Longitud,ProfundidadKM,Magnitud`
 
 **Ejemplo de entrada:**
 
+
 ```
-2021-07-13,5.4,10,Guerrero
-2022-02-11,6.2,35,Chiapas
-2023-01-05,4.8,15,Oaxaca
+8,2025-07-30T18:25:00Z,52.08,159.65,25.0,8.8
+9,2025-06-12T03:14:45Z,38.74,142.35,30.2,7.4
+10,2025-11-02T13:47:22Z,4.12,96.02,15.0,6.8
 ```
 
 Si el archivo no existe, el programa mostrará un mensaje de error y solicitará un nuevo nombre.
@@ -58,10 +59,8 @@ Las opciones disponibles en el menú son:
 1. Mostrar los sismos más **fuertes** (ordenar por magnitud)
 2. Mostrar los sismos más **superficiales** (ordenar por profundidad)
 3. Mostrar los sismos más **recientes** (ordenar por fecha)
-4. Mostrar **todos los datos sin ordenar**
-5. **Agregar un nuevo sismo**
-6. **Salir del programa**
-
+4. Mostrar **todos los datos** (sin ordenar, en el orden del archivo)
+5. **Salir** del programa
 Cada opción despliega los resultados en formato tabular directamente en la consola.
 
 ---

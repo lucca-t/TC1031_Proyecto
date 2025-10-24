@@ -1,7 +1,7 @@
 // Lucca Traslosheros Abascal
 // A01713944
-// Avance 1
-// 26 de septiembre de 2025
+// Avance 2
+// 23 de octubre de 2025
 
 #include "Analizador.h"  
 #include <fstream>       
@@ -43,9 +43,14 @@ bool Analizador::cargarDatos(const std::string& nombreArchivo) {
         
         
         sismos.push_back(Sismo(id, fecha, lat, lon, prof, mag));
+
+        // Agregar en arbol
+        Sismo nuevoSismo(id, fecha, lat, lon, prof, mag);
+        arbolSismos.agregar(nuevoSismo);
+
     }
 
-    
+      
     archivo.close();
     return true;
 }
@@ -59,7 +64,6 @@ void Analizador::merge(int l, int m, int r, std::function<bool(const Sismo&, con
 
     std::vector<Sismo> L(n1), R(n2);
 
-     
     for (int i = 0; i < n1; i++){
         L[i] = sismos[l + i];
     }
@@ -92,7 +96,6 @@ void Analizador::merge(int l, int m, int r, std::function<bool(const Sismo&, con
     }
 }
 
-
 void Analizador::mergeSort(int l, int r, std::function<bool(const Sismo&, const Sismo&)> comparador) {
     if (l >= r) return;
     int m = l + (r - l) / 2;
@@ -120,6 +123,7 @@ void Analizador::mostrarDatos(const std::string& titulo) const {
     for (const auto& sismo : sismos) {
         sismo.imprimir();
     }
+
     std::cout << "--------------------------------------\n";
 }
 
@@ -127,3 +131,19 @@ void Analizador::mostrarDatos(const std::string& titulo) const {
 int Analizador::cantidadRegistros() const {
     return sismos.size();
 }
+
+
+std::string Analizador::mostrarInorder() const {
+    return arbolSismos.inorder();
+}
+
+std::string Analizador::mostrarPreorder() const {
+    return arbolSismos.preorder();
+}
+
+std::string Analizador::mostrarPostorder() const {
+    return arbolSismos.postorder();
+}
+
+
+
