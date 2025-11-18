@@ -14,7 +14,9 @@ void mostrarMenu() {
               << "3. Mostrar los sismos más RECIENTES (ordenar por fecha)\n"
               << "4. Mostrar todos los datos\n"
               << "5. Mostrar los sismos usando BST (inorder, preorder, postorder)\n"
-              << "6. Salir\n"
+              << "6. Guardar datos ordenados a un archivo\n" 
+              << "7. Buscar sismo por Magnitud (BST)\n"
+              << "8. Salir\n"
               << "Elige una opción: ";
 }
 
@@ -90,7 +92,7 @@ int main() {
 
                 break;
             }
-            case 5: { // Nuevo: mostrar BST
+            case 5: {
                 std::cout << "\n--- Sismos usando BST (inorder) ---\n";
                 std::cout << analizador.mostrarInorder() << "\n";
                 std::cout << "--- Sismos usando BST (preorder) ---\n";
@@ -99,14 +101,45 @@ int main() {
                 std::cout << analizador.mostrarPostorder() << "\n";
                 break;
             }
-            case 6:
+            case 6: {
+                std::string nombreArchivoSalida = "sismos_ordenados.csv";
+                std::cout << "Se guardarán los datos en '" << nombreArchivoSalida << "' (basado en el último ordenamiento aplicado).\n";
+                analizador.guardarDatos(nombreArchivoSalida, "Sismos Ordenados"); 
+                std::cout << "Datos guardados.\n";
+                break;
+            }
+            case 7: { 
+                double magBuscada;
+                std::cout << "Escribe la magnitud a buscar (ej. 6.8): ";
+                std::cin >> magBuscada;
+                
+                // Limpia el buffer
+                if (std::cin.fail()) {
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Entrada inválida.\n";
+                    break;
+                }
+
+                Sismo* sismoEncontrado = analizador.buscarSismoPorMagnitud(magBuscada);
+                if (sismoEncontrado) {
+                    std::cout << "Sismo encontrado (o el más cercano):\n";
+                    sismoEncontrado->imprimir();
+                } else {
+                    std::cout << "No se encontró ningún sismo con magnitud " << magBuscada << ".\n";
+                }
+                break;
+            }
+            case 8: {
                 std::cout << "Análisis terminado. ¡Adiós!\n";
                 break;
-            default:
+            }
+            default: {
                 std::cout << "Opción no válida. Intenta de nuevo.\n";
                 break;
+            }
         }
-    } while (opcion != 6);
+    } while (opcion != 8);
 
     return 0;
 }

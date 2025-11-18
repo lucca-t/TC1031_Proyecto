@@ -1,12 +1,14 @@
 /*
- * Lucca Traslosheros Abascal
- * A01713944
- * bst_sismos.cpp
- * Implementación de las funciones del BST para objetos Sismo.
- * ordenados por magnitud.
- * Avance 2
- * 23 de octubre de 2025
+    Lucca Traslosheros Abascal
+    A01713944
+    bst_sismos.cpp
+    Implementación de las funciones del BST para objetos Sismo.
+    ordenados por magnitud.
+    Avance 3
+    17 de noviembre de 2025
 */
+
+
 #include "bst_sismos.h"
 
 // NodoSismo constructor
@@ -86,4 +88,27 @@ void BSTSismos::eliminarArbol(NodoSismo *nodo) {
     eliminarArbol(nodo->izquierdo);
     eliminarArbol(nodo->derecho);
     delete nodo;
+}
+
+Sismo* BSTSismos::buscarPorMagnitud(double mag) const {
+    return buscarRecursivo(raiz, mag);
+}
+
+Sismo* BSTSismos::buscarRecursivo(NodoSismo *nodo, double mag) const {
+    // Por si el árbol es nulo
+    if (nodo == nullptr) {
+        return nullptr;
+    }
+
+    // Con un rango de diferencia por float rounding
+    if (std::abs(nodo->valor.magnitud - mag) < .001) {
+        return &(nodo->valor);
+    }
+
+    // Búsqueda
+    if (mag < nodo->valor.magnitud) {
+        return buscarRecursivo(nodo->izquierdo, mag);
+    } else {
+        return buscarRecursivo(nodo->derecho, mag);
+    }
 }

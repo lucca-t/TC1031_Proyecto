@@ -1,13 +1,14 @@
-// Lucca Traslosheros Abascal
-// A01713944
-// Avance 2
-// 23 de octubre de 2025
+/*
+    Lucca Traslosheros Abascal
+    A01713944
+    Analizador.cpp
+    Avance 3
+    17 de noviembre de 2025
+*/
 
-#include "Analizador.h"  
-#include <fstream>       
-#include <sstream>       
+#include "Analizador.h"     
 
-// Implementación de la función cargarDatos
+// Cargar de archivo
 bool Analizador::cargarDatos(const std::string& nombreArchivo) {
     
     // Abre el archivo.
@@ -127,6 +128,36 @@ void Analizador::mostrarDatos(const std::string& titulo) const {
     std::cout << "--------------------------------------\n";
 }
 
+bool Analizador::guardarDatos(const std::string& nombreArchivo, const std::string& titulo) const {
+    // Empezar el archivo
+    std::ofstream archivoSalida(nombreArchivo);
+
+    // Checar si esta en uso
+    if (!archivoSalida.is_open()) {
+        std::cerr << "Error: No se pudo crear el archivo '" << nombreArchivo << "'" << std::endl;
+        return false;
+    }
+
+    archivoSalida << "--- " << titulo << " ---\n";
+    // Escribe el encabezado
+    archivoSalida << "ID,FechaUTC,Latitud,Longitud,ProfundidadKM,Magnitud\n";
+
+    // Usa el vector 'sismos' que ya está ordenado por la última operación
+    for (const auto& sismo : sismos) {
+        archivoSalida << sismo.id << ","
+                      << sismo.fecha_hora_utc << ","
+                      << sismo.latitud << ","
+                      << sismo.longitud << ","
+                      << sismo.profundidad_km << ","
+                      << sismo.magnitud << "\n";
+    }
+
+    archivoSalida.close();
+    return true;
+}
+
+
+
 // Regresa el número total de sismos cargados.
 int Analizador::cantidadRegistros() const {
     return sismos.size();
@@ -143,6 +174,10 @@ std::string Analizador::mostrarPreorder() const {
 
 std::string Analizador::mostrarPostorder() const {
     return arbolSismos.postorder();
+}
+
+Sismo* Analizador::buscarSismoPorMagnitud(double mag) const {
+    return arbolSismos.buscarPorMagnitud(mag);
 }
 
 

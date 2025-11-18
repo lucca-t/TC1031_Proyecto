@@ -1,9 +1,9 @@
-// Lucca Traslosheros Abascal
-// A01713944
-// Avance 2
-// 23 de octubre de 2025
-
-
+/*
+    Lucca Traslosheros Abascal
+    A01713944
+    Avance 3
+    17 de noviembre de 2025
+*/
 #ifndef SISMO_H
 #define SISMO_H
 
