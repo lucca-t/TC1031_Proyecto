@@ -118,6 +118,107 @@ A continuación, se detalla el análisis de complejidad para las estructuras de 
     * **Peor Caso:** $O(n)$.
     * **Justificación:** Se debe iterar sobre los *n* elementos del vector para imprimirlos o guardarlos en el archivo.
 
+
+**Funciones Auxiliares de Comparación**
+* **Funciones: `compararPorFecha`, `compararPorProfundidad`, `compararPorMagnitud`**
+    * **Mejor Caso:** $O(1)$.
+    * **Caso Promedio:** $O(1)$.
+    * **Peor Caso:** $O(1)$.
+    * **Justificación:** Cada función realiza una única comparación entre dos atributos de objetos `Sismo`. Acceder a un atributo y compararlo son operaciones de tiempo constante.
+
+**Funciones Auxiliares de Merge Sort**
+* **Función: `merge` (fusión de dos mitades ordenadas)**
+    * **Mejor Caso:** $O(n)$.
+    * **Caso Promedio:** $O(n)$.
+    * **Peor Caso:** $O(n)$.
+    * **Justificación:** La función debe comparar e insertar todos los elementos de ambas mitades en un vector resultante. En total, procesa *n* elementos (donde *n* es el tamaño de ambas mitades combinadas). Cada comparación e inserción es $O(1)$, realizada *n* veces.
+* **Función: `split` (división del vector en dos mitades)**
+    * **Mejor Caso:** $O(n)$.
+    * **Caso Promedio:** $O(n)$.
+    * **Peor Caso:** $O(n)$.
+    * **Justificación:** La función copia todos los *n* elementos del vector original en dos vectores temporales (mitad izquierda y mitad derecha). Cada copia es una operación $O(1)$, realizada *n* veces en total.
+
+**Funciones Recursivas del BST**
+* **Función: `agregarRecursivo` (inserción recursiva en el árbol)**
+    * **Mejor Caso:** $O(1)$. Ocurre cuando se inserta en un árbol vacío (el nuevo nodo se convierte en la raíz directamente).
+    * **Caso Promedio:** $O(\log n)$. En un árbol balanceado, la función desciende aproximadamente $\log_2 n$ niveles hasta encontrar la posición de inserción.
+    * **Peor Caso:** $O(n)$. En un árbol degenerado (forma de lista enlazada), la función debe recorrer todos los nodos hasta llegar al final.
+    * **Justificación:** En cada llamada recursiva, se realiza una comparación $O(1)$ y se avanza un nivel en el árbol. El número de niveles recorridos depende de la altura del árbol.
+* **Función: `buscarRecursivo` (búsqueda recursiva en el árbol)**
+    * **Mejor Caso:** $O(1)$. La magnitud buscada está en la raíz del árbol.
+    * **Caso Promedio:** $O(\log n)$. En un árbol balanceado, cada comparación descarta aproximadamente la mitad del árbol restante.
+    * **Peor Caso:** $O(n)$. En un árbol degenerado, se debe recorrer todo el camino desde la raíz hasta una hoja.
+    * **Justificación:** Similar a `agregarRecursivo`, el costo depende de la altura del árbol. En cada paso se realiza una comparación $O(1)$.
+* **Funciones: `inorderRecursivo`, `preorderRecursivo`, `postorderRecursivo`**
+    * **Mejor Caso:** $O(n)$.
+    * **Caso Promedio:** $O(n)$.
+    * **Peor Caso:** $O(n)$.
+    * **Justificación:** Los recorridos visitan cada nodo del árbol exactamente una vez, sin importar la forma del árbol (balanceado o degenerado). En cada visita, se realiza una operación constante (imprimir el nodo). Por lo tanto, la complejidad es lineal respecto al número de nodos.
+
+#### Complejidad Final del Programa
+
+La complejidad del programa completo depende de la secuencia de operaciones ejecutadas, determinada por las opciones del menú que seleccione el usuario. A continuación se analiza cada flujo posible:
+
+**Flujo 1: Carga Inicial de Datos (Ejecutado al inicio del programa)**
+* **Operaciones:**
+    1. Lectura del archivo: $O(n)$ (leer *n* líneas del archivo `.csv`).
+    2. Inserción en vector (`push_back`): $O(1)$ amortizado por elemento → $O(n)$ total para *n* elementos.
+    3. Inserción en BST (`agregar`): $O(\log n)$ promedio por elemento → $O(n \log n)$ total promedio; $O(n)$ peor caso por elemento → $O(n^2)$ total peor caso.
+* **Complejidad Dominante de la Carga:**
+    * **Mejor/Caso Promedio:** $O(n \log n)$ (dominado por la construcción del BST con inserciones balanceadas).
+    * **Peor Caso:** $O(n^2)$ (dominado por la construcción del BST si degenera en lista).
+
+**Flujo 2: Ordenar y Mostrar (Opciones 1, 2, 3 del menú)**
+* **Operaciones:**
+    1. Carga inicial: $O(n \log n)$ promedio (costo único ya ejecutado).
+    2. Ordenamiento con Merge Sort: $O(n \log n)$ (garantizado en todos los casos).
+    3. Mostrar datos (iterar vector): $O(n)$.
+* **Complejidad Dominante del Flujo:**
+    * **Todos los Casos:** $O(n \log n)$ (dominado por el Merge Sort, ya que la carga es un costo previo y mostrar es $O(n)$ que queda absorbido).
+
+**Flujo 3: Mostrar Todos los Datos sin Ordenar (Opción 4 del menú)**
+* **Operaciones:**
+    1. Carga inicial: $O(n \log n)$ promedio (costo único ya ejecutado).
+    2. Mostrar datos sin ordenar (iterar vector): $O(n)$.
+* **Complejidad Dominante del Flujo:**
+    * **Mejor/Caso Promedio:** $O(n \log n)$ (dominado por la carga inicial previa).
+    * **Peor Caso:** $O(n^2)$ (si el BST degeneró durante la carga inicial).
+
+**Flujo 4: Recorridos del BST (Opción 5 del menú)**
+* **Operaciones:**
+    1. Carga inicial: $O(n \log n)$ promedio (costo único ya ejecutado).
+    2. Recorrido del BST (inorder/preorder/postorder): $O(n)$ (visita cada nodo una vez).
+* **Complejidad Dominante del Flujo:**
+    * **Mejor/Caso Promedio:** $O(n \log n)$ (dominado por la carga inicial previa).
+    * **Peor Caso:** $O(n^2)$ (si el BST degeneró durante la carga inicial).
+
+**Flujo 5: Guardar Datos a Archivo (Opción 6 del menú)**
+* **Operaciones:**
+    1. Carga inicial: $O(n \log n)$ promedio (costo único ya ejecutado).
+    2. (Opcional) Ordenamiento previo si el usuario ordenó antes: $O(n \log n)$.
+    3. Escritura a archivo (iterar vector): $O(n)$.
+* **Complejidad Dominante del Flujo:**
+    * **Sin ordenamiento previo:** $O(n \log n)$ (dominado por la carga inicial).
+    * **Con ordenamiento previo:** $O(n \log n)$ (la escritura $O(n)$ queda absorbida).
+    * **Peor Caso:** $O(n^2)$ (si el BST degeneró durante la carga).
+
+**Flujo 6: Buscar Sismo por Magnitud (Opción 7 del menú)**
+* **Operaciones:**
+    1. Carga inicial: $O(n \log n)$ promedio (costo único ya ejecutado).
+    2. Búsqueda en BST (`buscarPorMagnitud`): $O(\log n)$ promedio; $O(n)$ peor caso.
+* **Complejidad Dominante del Flujo:**
+    * **Mejor Caso (magnitud en raíz):** $O(n \log n)$ (dominado por la carga inicial, ya que la búsqueda es $O(1)$).
+    * **Caso Promedio:** $O(n \log n)$ (dominado por la carga inicial, ya que la búsqueda $O(\log n)$ es mucho menor).
+    * **Peor Caso:** $O(n^2)$ (si el BST degeneró, tanto la carga como la búsqueda tienen complejidad cuadrática).
+
+**Conclusión: Complejidad Final del Programa Completo**
+
+* **Mejor Caso:** $O(n \log n)$. Ocurre cuando el BST se mantiene balanceado durante la carga y el usuario realiza operaciones eficientes (búsqueda en árbol balanceado, recorridos, o mostrar sin ordenar después de la carga).
+* **Caso Promedio:** $O(n \log n)$. En la mayoría de los casos prácticos, los datos de magnitud se insertan en orden aleatorio, manteniendo el BST razonablemente balanceado. Las operaciones de ordenamiento (Merge Sort) y las búsquedas en el BST no superan esta complejidad.
+* **Peor Caso:** $O(n^2)$. Ocurre cuando los datos se insertan en orden (creciente o decreciente) en el BST, causando su degeneración en una lista enlazada. En este escenario, tanto la carga inicial como las búsquedas posteriores tienen complejidad cuadrática.
+
+**Operación Dominante:** La **construcción del BST durante la carga inicial** es la operación que determina la complejidad final del programa en todos los flujos, ya que es un costo único que debe pagarse antes de cualquier otra operación. Las operaciones posteriores (ordenamiento $O(n \log n)$, búsqueda $O(\log n)$, recorridos $O(n)$) no exceden esta complejidad en el caso promedio.
+
 **Estructura 2: `BSTSismos arbolSismos` (BST ordenado por Magnitud)**
 * **Operación: Carga de Datos (`cargarDatos` -> `arbolSismos.agregar`)**
     * **Mejor Caso:** $O(\log n)$. Ocurre si el árbol está balanceado.
