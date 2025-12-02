@@ -100,7 +100,7 @@ Las opciones disponibles en el menú son:
 
 #### Hace un análisis de complejidad correcto y completo para los algoritmos de ordenamiento usados en el programa.
 
-A continuación, se detalla el análisis de complejidad para las estructuras de datos y las operaciones clave del programa, donde **n** es el número total de sismos en el conjunto de datos.
+A continuación, se detalla el análisis de complejidad para las estructuras de datos y las operaciones clave del programa, donde **n** es el número total de sismos en los datos.
 
 **Estructura 1: `std::vector<Sismo> sismos`**
 * **Operación: Carga de Datos (`cargarDatos` -> `sismos.push_back`)**
@@ -155,6 +155,8 @@ A continuación, se detalla el análisis de complejidad para las estructuras de 
     * **Peor Caso:** $O(n)$.
     * **Justificación:** Los recorridos visitan cada nodo del árbol exactamente una vez, sin importar la forma del árbol (balanceado o degenerado). En cada visita, se realiza una operación constante (imprimir el nodo). Por lo tanto, la complejidad es lineal respecto al número de nodos.
 
+
+
 #### Complejidad Final del Programa
 
 La complejidad del programa completo depende de la secuencia de operaciones ejecutadas, determinada por las opciones del menú que seleccione el usuario. A continuación se analiza cada flujo posible:
@@ -163,7 +165,7 @@ La complejidad del programa completo depende de la secuencia de operaciones ejec
 * **Operaciones:**
     1. Lectura del archivo: $O(n)$ (leer *n* líneas del archivo `.csv`).
     2. Inserción en vector (`push_back`): $O(1)$ amortizado por elemento → $O(n)$ total para *n* elementos.
-    3. Inserción en BST (`agregar`): $O(\log n)$ promedio por elemento → $O(n \log n)$ total promedio; $O(n)$ peor caso por elemento → $O(n^2)$ total peor caso.
+    3. Inserción en BST (`agregar`): $O(\log n)$ promedio por elemento → $O(n \log n)$ total promedio; $O(n)$ peor caso por elemento → $O(n^2)$ total peor peor caso para todos los datos.
 * **Complejidad Dominante de la Carga:**
     * **Mejor/Caso Promedio:** $O(n \log n)$ (dominado por la construcción del BST con inserciones balanceadas).
     * **Peor Caso:** $O(n^2)$ (dominado por la construcción del BST si degenera en lista).
@@ -173,7 +175,7 @@ La complejidad del programa completo depende de la secuencia de operaciones ejec
     1. Carga inicial: $O(n \log n)$ promedio (costo único ya ejecutado).
     2. Ordenamiento con Merge Sort: $O(n \log n)$ (garantizado en todos los casos).
     3. Mostrar datos (iterar vector): $O(n)$.
-* **Complejidad Dominante del Flujo:**
+* **Complejidad del Flujo:**
     * **Todos los Casos:** $O(n \log n)$ (dominado por el Merge Sort, ya que la carga es un costo previo y mostrar es $O(n)$ que queda absorbido).
 
 **Flujo 3: Mostrar Todos los Datos sin Ordenar (Opción 4 del menú)**
